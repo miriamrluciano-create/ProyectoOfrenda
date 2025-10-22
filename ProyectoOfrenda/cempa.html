@@ -1,0 +1,143 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>Práctica 01</title>
+</head>
+<body>
+    
+<canvas id="myCanvas">
+    <!--El elemento HTML canvas se puede utilizar para dibujar gráficos a través de 
+        secuencias de comandos (por lo general JavaScript ).-->
+</canvas>
+
+<!-- Aquí va todo el código de three.js -->
+<!-- script type="importmap" importa las librerías necesarias para three.js-->
+<script type="importmap"> 
+    {
+        "imports":{
+            "three": "./js/three.module.js",
+            "three/OrbitControls": "./js/OrbitControls.js" 
+        }
+}
+</script>
+<script type="module"> 
+//🗃️🗃️ Mandar llamar a la librería
+    import * as THREE from 'three'; 
+    import {OrbitControls} from 'three/OrbitControls';
+    console.log(OrbitControls);
+ import {RoundedBoxGeometry} from "./js/RoundedBoxGeometry.js"
+
+//🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
+    var renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('myCanvas'), antialias: true,
+    });
+    renderer.setPixelRatio(window.decivePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0xFFFFFF);
+
+
+// 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
+    var scene = new THREE.Scene();
+
+//🎥🎥 Agregar una cámara de perspectiva
+    var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight,0.1,2000
+      );
+    scene.add(camera);
+
+    //Settings de la cámara
+    camera.position.set(0, 60, 100);
+
+    // Añadiendo los OrbitControls
+    var controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+// Espacio para colocar los objetos
+//Luz
+ var light = new THREE.DirectionalLight(0xFFFFFF,1.5);
+ 
+light.position.set(0, 45, 60);
+light.target.position.set(0, 0, 0); //cuando hay sombra
+light.castShadow = true;
+light.shadow.bias = 0.01;
+light.shadow.mapSize.width = 512*3;
+light.shadow.mapSize.height = 512*3;
+light.shadow.camera.top = 50;
+light.shadow.camera.bottom = -50;
+light.shadow.camera.left = -50;
+light.shadow.camera.right = 50;
+light.shadow.camera.visible=true;
+var directionalHelper = new THREE.CameraHelper(light.shadow.camera);
+//scene.add(directionalHelper);
+scene.add(light);
+ 
+
+
+
+//FLOR2
+var petalo2 = new RoundedBoxGeometry(0.5, 1.5, 0.5, 8, 2); // llamar a la librería para redondear
+var material11 = new THREE.MeshLambertMaterial({ // material nuevo
+    color: 0xCF863C,
+    side: THREE.DoubleSide
+});
+
+// Crear meshes
+var mesh32 = new THREE.Mesh(petalo2, material11);
+mesh32.position.set(0, 2, 0);
+mesh32.castShadow = true;
+scene.add(mesh32);
+var mesh33 = new THREE.Mesh(petalo2, material11);
+mesh33.rotation.set(0, 0, 0.785);
+mesh33.position.set(0, 2, 0);
+mesh33.castShadow = true;
+scene.add(mesh33);
+var mesh34 = new THREE.Mesh(petalo2, material11);
+mesh34.rotation.set(0, 0, 1.57);
+mesh34.position.set(0, 2, 0);
+mesh34.castShadow = true;
+scene.add(mesh34);
+var mesh35 = new THREE.Mesh(petalo2, material11);
+mesh35.rotation.set(0, 0, 2.355);
+mesh35.position.set(0, 2, 0);
+mesh35.castShadow = true;
+scene.add(mesh35);
+
+// Crear meshes
+var mesh36 = new THREE.Mesh(petalo2, material11);
+mesh36.position.set(0, 2, 0);
+mesh36.rotation.set(1.57, 0, 0);
+mesh36.castShadow = true;
+scene.add(mesh36);
+var mesh37 = new THREE.Mesh(petalo2, material11);
+mesh37.rotation.set(1.57, 0, 0.785);
+mesh37.position.set(0, 2, 0);
+mesh37.castShadow = true;
+scene.add(mesh37);
+var mesh38 = new THREE.Mesh(petalo2, material11);
+mesh38.rotation.set(1.57, 0, 1.57);
+mesh38.position.set(0, 2, 0);
+mesh38.castShadow = true;
+scene.add(mesh38);
+var mesh39 = new THREE.Mesh(petalo2, material11);
+mesh39.rotation.set(1.57, 0, 2.355);
+mesh39.position.set(0, 2, 0);
+mesh39.castShadow = true;
+scene.add(mesh39);
+
+
+//🎰🎰Rendering y animación
+    requestAnimationFrame(render);
+    function render() {
+
+    //🪄🪄 Animación - 
+
+    //🎮🎮Actualización del OrbitControls para generar la suavidad de movimiento
+    controls.update();
+
+    //Llamado para renderizar y volver a llamar a la misma función (render)
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+    }
+</script>
+</body>
+</html>

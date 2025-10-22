@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ofrenda</title>
+ <link rel="icon" href="cala.png" type="image/png">
+</head>
+<body>
+   
+<canvas id="myCanvas">
+    <!--El elemento HTML canvas se puede utilizar para dibujar gráficos a través de
+        secuencias de comandos (por lo general JavaScript ).-->
+</canvas>
+ 
+<!-- Aquí va todo el código de three.js -->
+<!-- script type="importmap" importa las librerías necesarias para three.js-->
+<script type="importmap">
+    {
+        "imports":{
+            "three": "./js/three.module.js",
+            "three/OrbitControls": "./js/OrbitControls.js"
+        }
+    }
+</script>
+<script type="module">
+//🗃️🗃️ Mandar llamar a la librería
+    import * as THREE from 'three';
+    import {OrbitControls} from 'three/OrbitControls';
+    console.log(OrbitControls);
+    import {RoundedBoxGeometry} from "./js/RoundedBoxGeometry.js"
+    import Velafin from "./objetos/Vela.js"
+    import trajinera from "./objetos/trajinera.js"
+    import silla from "./objetos/silla.js"
+    import flores from "./objetos/flores.js"
+    import papel from "./objetos/PAPEL.js"
+    import plato from "./objetos/plato.js"
+    import foto from "./objetos/CUADRO.js"
+    import botella from "./objetos/botella2.js"
+    import taza from "./objetos/taza.js"
+    import cruz from "./objetos/CRUZ.js"
+    import copal from "./objetos/copal2.js"
+    import pan from "./objetos/pan.js"
+    import cig from "./objetos/CIGARROS.js"
+    import vaso from "./objetos/vaso2.js"
+    import vaso2 from "./objetos/VASO.js"
+    import cal from "./objetos/cal.js" 
+    import cem from "./objetos/cempa.js" 
+    import copal3 from "./objetos/COPAL.js" 
+
+//🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
+    var renderer = new THREE.WebGLRenderer({
+        canvas: document.getElementById('myCanvas'), antialias: true,
+    });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x7A76E8);
+ 
+// 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
+    var scene = new THREE.Scene();
+ 
+//🎥🎥 Agregar una cámara de perspectiva
+    var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight,0.1,2000);
+    scene.add(camera);
+ 
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
+
+const canvas = document.getElementById('myCanvas');
+
+window.addEventListener('resize', () => {
+ 
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(sizes.width, sizes.height);
+});
+
+    //Settings de la cámara
+    camera.position.set(-280, 140, 80);
+
+ 
+    // Añadiendo los OrbitControls
+    var controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+ 
+
+    var loader = new THREE.TextureLoader();
+    var bgTexture =loader.load('./image/fondo.png');
+    scene.background =bgTexture;
+// Espacio para colocar los objetos
+ 
+
+
+//LUCES
+
+//sombras
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;
+
+//puntos de luz 
+var pluz1 = new THREE.PointLight(0xE8DE51, 4, 200, 0.5);
+pluz1.position.set(-325, 130, -145);
+scene.add(pluz1);
+pluz1.castShadow = true;
+
+
+var pluz2= new THREE.PointLight(0xE8DE51, 4, 200, 0.5);
+pluz2.position.set(260, 130, -145);
+scene.add(pluz2);
+pluz2.castShadow = true;
+
+var pluz3= new THREE.PointLight(0xE8DE51, 4, 200, 0.5);
+pluz3.position.set(-160, 130, -145);
+scene.add(pluz3);
+pluz3.castShadow = true;
+
+var pluz4= new THREE.PointLight(0xE8DE51, 4, 200, 0.5);
+pluz4.position.set(80, 130, -145);
+scene.add(pluz4);
+pluz4.castShadow = true;
+
+var pluz5= new THREE.PointLight(0xF54927, 4, 80, 0.5);
+pluz5.position.set(-0,31,-70);
+scene.add(pluz5);
+pluz5.castShadow = true;
+
+var pluz6= new THREE.PointLight(0xF54927, 4, 80, 0.5);
+pluz6.position.set(-100,28,-190);
+scene.add(pluz6);
+pluz6.castShadow = true;
+
+var pluz7= new THREE.PointLight(0xF54927, 4, 80, 0.5);
+pluz7.position.set(-300,28,-190);
+scene.add(pluz7);
+pluz7.castShadow = true;
+
+var pluz8= new THREE.PointLight(0xF54927, 4, 80, 0.5);
+pluz8.position.set(-340,28,-190);
+scene.add(pluz8);
+pluz8.castShadow = true;
+
+var pluz9= new THREE.PointLight(0xF54927, 4, 80, 0.5);
+pluz9.position.set(-200,28,-160);
+scene.add(pluz9);
+pluz9.castShadow = true;
+
+
+var pluz10= new THREE.PointLight(0xF54927, 4, 80, 0.5);
+pluz10.position.set(-200,28,-160);
+scene.add(pluz10);
+pluz10.castShadow = true;
+
+var pluz11= new THREE.PointLight(0xF54927, 4, 80, 0.5);
+pluz11.position.set(100,28,-140);
+scene.add(pluz11);
+pluz11.castShadow = true;
+
+var pluz11= new THREE.PointLight(0xF54927, 4, 80, 0.5);
+pluz11.position.set(50,28,-180);
+scene.add(pluz11);
+pluz11.castShadow = true;
+
+var pluz12= new THREE.PointLight(0xF54927, 4, 85, 0.5);
+pluz12.position.set(0, 120, 80);
+scene.add(pluz12);
+pluz12.castShadow = true;
+
+var pluz13= new THREE.PointLight(0xEDE4AF, 4, 45, 1);
+pluz13.position.set(77, 80, 65);
+scene.add(pluz13);
+pluz13.castShadow = true;
+
+var pluz14= new THREE.PointLight(0xEDE4AF, 4, 45, 1);
+pluz14.position.set(77, 80, 95);
+scene.add(pluz14);
+pluz14.castShadow = true;
+
+
+
+
+
+//LUCES DE LA ESCENA
+var light1 = new THREE.DirectionalLight(0xffffff,1);
+light1.position.set(100,50,180);
+scene.add(light1);
+
+ 
+var light1 = new THREE.DirectionalLight(0xffffff,2);
+light1.position.set(80,50,-100);
+scene.add(light1);
+
+
+// Objetos 2D
+ 
+ 
+ 
+ 
+ 
+ 
+// Objetos 3D
+
+// lago1
+var Caja = new THREE.BoxGeometry(700, 5, 700, 5, 5, 5);
+var texture1 = new THREE.TextureLoader().load("./image/lago2.jpeg");
+var material1 =new THREE .MeshLambertMaterial({map:texture1,side:THREE.DoubleSide})
+var mesh1 = new THREE.Mesh(Caja, material1);
+scene.add(mesh1);
+mesh1.position.set(0, -7, 43);
+mesh1.receiveShadow = true; 
+
+var LAGO2 = mesh1.clone();
+scene.add(LAGO2);
+LAGO2.position.set(700, -7, 43);
+LAGO2.rotation.set(0, 0 ,0 );
+
+var LAGO3 = mesh1.clone();
+scene.add(LAGO3);
+LAGO3.position.set(-700, -7, 43);
+
+var LAGO4 = mesh1.clone();
+scene.add(LAGO4);
+LAGO4.position.set(0, -7, -657);
+LAGO4.rotation.set(0, 3.14 ,0 );
+
+var LAGO5 = mesh1.clone();
+scene.add(LAGO5);
+LAGO5.position.set(0, -7, 740);
+LAGO5.rotation.set(0, 3.14 ,0 );
+
+var LAGO5 = mesh1.clone();
+scene.add(LAGO5);
+LAGO5.position.set(700, -7, 740);
+LAGO5.rotation.set(0, 3.14 ,0 );
+
+var LAGO6 = mesh1.clone();
+scene.add(LAGO6);
+LAGO6.position.set(-700, -7, 740);
+LAGO6.rotation.set(0, 3.14 ,0 );
+
+var LAGO7 = mesh1.clone();
+scene.add(LAGO7);
+LAGO7.position.set(700, -7, -657);
+LAGO7.rotation.set(0, 3.14 ,0 );
+
+var LAGO8 = mesh1.clone();
+scene.add(LAGO8);
+LAGO8.position.set(-700, -7, -657);
+LAGO8.rotation.set(0, 3.14 ,0 );
+
+//CODIGO DE ESCENARIO
+//muelle
+var Caja = new THREE.BoxGeometry(130, 12, 80, 5, 5, 5);
+var texture2 = new THREE.TextureLoader().load("./image/madera1.jpg");
+var material2 =new THREE .MeshLambertMaterial({map:texture2,side:THREE.DoubleSide})
+var mesh2 = new THREE.Mesh(Caja, material2);
+scene.add(mesh2);
+mesh2.position.set(-320, 15, -175);
+mesh2.castShadow = true;   
+
+var made1= new THREE.Group();
+made1.add(mesh2);
+scene.add(made1);
+made1.position.set(0,6,0);
+ 
+var made2 = made1.clone();
+scene.add(made2);
+made2.position.set(130,6,0);
+
+var made3 = made1.clone();
+scene.add(made3);
+made3.position.set(260,6,0);
+ 
+var made4 = made1.clone();
+scene.add(made4);
+made4.position.set(390,6,0);
+
+var made5 = made1.clone();
+scene.add(made5);
+made5.position.set(520,6,0);
+
+var made6 = made1.clone();
+scene.add(made6);
+made6.position.set(650,6,0);
+
+var Caja = new THREE.BoxGeometry(90, 12, 80, 5, 5, 5);
+var texture2 = new THREE.TextureLoader().load("./image/madera1.jpg");
+var material2 =new THREE .MeshLambertMaterial({map:texture2,side:THREE.DoubleSide})
+var mesh2 = new THREE.Mesh(Caja, material2);
+scene.add(mesh2);
+mesh2.position.set(-10, 21, -95);
+mesh2.castShadow = true;
+
+
+//palos de madera
+var cubo = new RoundedBoxGeometry(6.5,55, 6.5, 10, 2);
+var texture3 = new THREE.TextureLoader().load("./image/madera1.jpg");
+var material3 =new THREE .MeshLambertMaterial({map:texture3,side:THREE.DoubleSide})
+var mesh3 = new THREE.Mesh(cubo, material3);
+mesh3.position.set(-360, 13.8, -210);
+scene.add(mesh3);
+
+var pal1= new THREE.Group();
+pal1.add(mesh3);
+scene.add(pal1);
+pal1.position.set(0,6.2,0);
+
+var pal2 = pal1.clone();
+scene.add(pal2);
+pal2.position.set(0,6.2,70);
+
+var pal3 = pal1.clone();
+scene.add(pal3);
+pal3.position.set(70,6.2,0);
+
+var pal3 = pal1.clone();
+scene.add(pal3);
+pal3.position.set(70,6.2,70);
+
+var pal4 = pal1.clone();
+scene.add(pal4);
+pal4.position.set(150,6.2,0);
+
+var pal5 = pal1.clone();
+scene.add(pal5);
+pal5.position.set(150,6.2,70);
+
+var pal4 = pal1.clone();
+scene.add(pal4);
+pal4.position.set(230,6.2,0);
+
+var pal5 = pal1.clone();
+scene.add(pal5);
+pal5.position.set(230,6.2,70);
+
+var pal6 = pal1.clone();
+scene.add(pal6);
+pal6.position.set(300,6.2,0);
+
+var pal7 = pal1.clone();
+scene.add(pal7);
+pal7.position.set(300,6.2,70);
+
+var pal8 = pal1.clone();
+scene.add(pal8);
+pal8.position.set(400,6.2,0);
+
+var pal9 = pal1.clone();
+scene.add(pal9);
+pal9.position.set(400,6.2,70);
+
+
+var pal10 = pal1.clone();
+scene.add(pal10);
+pal10.position.set(500,6.2,0);
+
+var pal11 = pal1.clone();
+scene.add(pal11);
+pal11.position.set(500,6.2,70);
+
+var pal12 = pal1.clone();
+scene.add(pal12);
+pal12.position.set(600,6.2,0);
+
+var pal13 = pal1.clone();
+scene.add(pal13);
+pal13.position.set(600,6.2,70);
+
+var pal14 = pal1.clone();
+scene.add(pal14);
+pal14.position.set(700,6.2,0);
+
+var pal15 = pal1.clone();
+scene.add(pal15);
+pal15.position.set(700,6.2,70);
+
+var pal16 = pal1.clone();
+scene.add(pal16);
+pal16.position.set(310,6.2,150);
+
+
+var pal17 = pal1.clone();
+scene.add(pal17);
+pal17.position.set(390,6.2,150);
+
+
+//Lamparas
+
+var cilindro = new THREE.CylinderGeometry(3, 10, 25, 30, 30, false, 0, 6.28);
+var texture4 = new THREE.TextureLoader().load("./image/metal.jpg");
+var material4 =new THREE .MeshLambertMaterial({map:texture4,side:THREE.DoubleSide})
+var mesh4 = new THREE.Mesh(cilindro, material4);
+scene.add(mesh4);
+mesh4.position.set(-325, 40, -145);
+
+var cilindro = new THREE.CylinderGeometry(2, 2, 80, 30, 30, false, 0, 6.28);
+var texture5 = new THREE.TextureLoader().load("./image/metal.jpg");
+var material5 =new THREE .MeshLambertMaterial({map:texture5,side:THREE.DoubleSide})
+var mesh5 = new THREE.Mesh(cilindro, material5);
+scene.add(mesh5);
+mesh5.position.set(-325, 90, -145);
+
+//luz
+var esfera = new THREE.SphereGeometry(9, 30, 30);
+var material6 = new THREE.MeshLambertMaterial({
+    color: 0xF5DC67, side: THREE.DoubleSide
+});
+var mesh6 = new THREE.Mesh(esfera, material6);
+scene.add(mesh6);
+mesh6.position.set(-325, 130, -145);
+mesh6.castShadow = true; 
+
+var cilindro = new THREE.CylinderGeometry(3,12.6,14, 30, 30, false, 0, 6.28);
+var texture7 = new THREE.TextureLoader().load("./image/metal.jpg");
+var material7 =new THREE .MeshLambertMaterial({map:texture7,side:THREE.DoubleSide})
+var mesh7 = new THREE.Mesh(cilindro, material7);
+scene.add(mesh7);
+mesh7.position.set(-325, 141, -145);
+mesh7.castShadow = true;  
+
+var esfera = new THREE.SphereGeometry(3, 30, 30);
+var texture8 = new THREE.TextureLoader().load("./image/metal.jpg");
+var material8 =new THREE .MeshLambertMaterial({map:texture8,side:THREE.DoubleSide})
+var mesh8 = new THREE.Mesh(esfera, material8);
+scene.add(mesh8);
+mesh8.position.set(-325, 150, -145);
+
+var lam1= new THREE.Group();
+lam1.add(mesh4,mesh5,mesh6,mesh7,mesh8);
+scene.add(lam1);
+lam1.position.set(0,0,-60);
+
+var lam2 = lam1.clone();
+scene.add(lam2);
+lam2.position.set(160,0,-60);
+
+var lam3 = lam1.clone();
+scene.add(lam3);
+lam3.position.set(420,0,-60);
+
+var lam4 = lam1.clone();
+scene.add(lam4);
+lam4.position.set(620,0,-60);
+
+//CajaFoto
+var Cajafoto = new THREE.BoxGeometry(20, 10, 50, 5, 5, 5);
+var texture9 = new THREE.TextureLoader().load("./image/textcaja.jpg");
+var material9 =new THREE .MeshLambertMaterial({map:texture9,side:THREE.DoubleSide})
+var mesh9 = new THREE.Mesh(Cajafoto, material9);
+scene.add(mesh9);
+mesh9.position.set(80, 67, 80);
+mesh9.castShadow = true; 
+
+//Fin del codigo del escenario
+
+// Cosas Importadas
+var escenario01 = Velafin({x:0,y:0,z:0});
+scene.add(escenario01);
+escenario01.position.set(0,28,-70);
+escenario01.scale.set(1.5,1.5,1.5,1.5); 
+
+var vela2 = escenario01.clone();
+scene.add(vela2);
+vela2.position.set(-100,28,-190);
+
+var vela3 = escenario01.clone();
+scene.add(vela3);
+vela3.position.set(-300,28,-190);
+scene.add(escenario01)
+
+var vela4 = escenario01.clone();
+scene.add(vela4);
+vela4.position.set(-340,28,-190);
+scene.add(escenario01)
+
+var vela5 = escenario01.clone();
+scene.add(vela5);
+vela5.position.set(-200,28,-160);
+scene.add(escenario01)
+
+var vela5 = escenario01.clone();
+scene.add(vela5);
+vela5.position.set(200,28,-160);
+scene.add(escenario01)
+
+var vela5 = escenario01.clone();
+scene.add(vela5);
+vela5.position.set(100,28,-140);
+scene.add(escenario01)
+
+var vela6 = escenario01.clone();
+scene.add(vela6);
+vela6.position.set(50,28,-180);
+scene.add(escenario01)
+ 
+var vela7 = escenario01.clone();
+scene.add(vela7);
+vela7.position.set(300,28,-180);
+scene.add(escenario01)
+//velasmesa
+var vela8 = escenario01.clone();
+scene.add(vela8);
+vela8.position.set(80, 70, 95);
+vela8.scale.set(2,3,2);
+scene.add(escenario01)
+
+var vela9 = escenario01.clone();
+scene.add(vela9);
+vela9.position.set(80, 70, 65);
+vela9.scale.set(2,3,2);
+scene.add(escenario01)
+
+var vela10 = escenario01.clone();
+scene.add(vela10);
+vela10.position.set(0, 60, 55);
+vela10.scale.set(2,3,2);
+scene.add(escenario01)
+
+var vela11 = escenario01.clone();
+scene.add(vela11);
+vela11.position.set(40, 60, 65);
+vela11.scale.set(2,3,2);
+scene.add(escenario01)
+
+var vela12 = escenario01.clone();
+scene.add(vela12);
+vela12.position.set(-40, 60, 65);
+vela12.scale.set(2,3,2);
+scene.add(escenario01)
+
+var vela13 = escenario01.clone();
+scene.add(vela13);
+vela13.position.set(0, 60, 105);
+vela13.scale.set(2,3,2);
+scene.add(escenario01)
+
+var vela14 = escenario01.clone();
+scene.add(vela14);
+vela14.position.set(40, 60, 95);
+vela14.scale.set(2,3,2);
+scene.add(escenario01)
+
+var vela15 = escenario01.clone();
+scene.add(vela15);
+vela15.position.set(-40, 60, 95);
+vela15.scale.set(2,3,2);
+scene.add(escenario01)
+
+//trajinera
+var escenario02 = trajinera({x:0,y:0,z:0});
+scene.add(escenario02);
+escenario02.position.set(0, 0, 80);
+escenario02.receiveShadow = true;
+escenario02.castShadow = true;
+
+//silla
+var escenario03 = silla({x:0,y:0,z:0});
+scene.add(escenario03);
+escenario03.position.set(-60,6,80);
+escenario03.receiveShadow = true;
+escenario03.castShadow = true;
+
+var silla2 = escenario03.clone(); 
+scene.add(silla2); 
+silla2.position.set(-20,6,80); 
+
+var silla3 = escenario03.clone(); 
+scene.add(silla3); 
+silla3.position.set(20,6,80); 
+
+var silla4 = escenario03.clone(); 
+scene.add(silla4); 
+silla4.position.set(60,6,80);
+
+var silla5 = escenario03.clone(); 
+scene.add(silla5); 
+silla5.position.set(-60,6,80);
+silla5.rotation.y = 3.14; 
+
+var silla6 = escenario03.clone(); 
+scene.add(silla6); 
+silla6.position.set(-20,6,80); 
+silla6.rotation.y = 3.14; 
+
+var silla7 = escenario03.clone(); 
+scene.add(silla7); 
+silla7.position.set(20,6,80);
+silla7.rotation.y = 3.14; 
+
+var silla8 = escenario03.clone(); 
+scene.add(silla8); 
+silla8.position.set(60,6,80);
+silla8.rotation.y = 3.14;  
+
+//flores
+var escenario04 = flores({x:0,y:0,z:0});
+scene.add(escenario04);
+escenario04.position.set(-105,83,20);
+escenario04.rotation.set(0,300,0);
+escenario04.scale.set(5,5,5);
+
+var flor2 = escenario04.clone(); 
+scene.add(flor2); 
+flor2.rotation.set(0, 60, 0);
+
+var florter1 = new THREE.Group();
+florter1.add(escenario04,flor2);
+florter1.position.set(0,0,0);
+scene.add(florter1);
+
+var florter2 = florter1.clone();
+florter2.position.set(0,-20,0);
+scene.add(florter2);
+
+var florter3 = florter1.clone();
+florter3.position.set(0,-40,0);
+scene.add(florter3);
+
+var florter4 = florter1.clone();
+florter4.position.set(0, 0, 120);
+scene.add(florter4);
+
+var florter5 = florter1.clone();
+florter5.position.set(0,-20,120);
+scene.add(florter5);
+
+var florter6 = florter1.clone();
+florter6.position.set(0,-40,120);
+scene.add(florter6);
+
+//PAPELPICADO
+var escenario05 = papel({x:0,y:0,z:0});
+scene.add(escenario05);
+escenario05.position.set(-88, 50, 80);
+escenario05.scale.set(5,2,5);
+escenario05.rotation.set(0,-1.57,0);
+
+var papel2 = escenario05.clone(); 
+scene.add(papel2); 
+papel2.position.set(88, 50, 80); 
+
+//plato
+var escenario06 = plato({x:0,y:0,z:0});
+scene.add(escenario06);
+escenario06.position.set(0, 60, 80);
+escenario06.scale.set(7,7,7);
+escenario06.rotation.set(0,-1.57,0);
+//cuadro
+var escenario07 = foto({x:0,y:0,z:0});
+scene.add(escenario07);
+escenario07.position.set(85, 47, 80);
+escenario07.scale.set(10,10,10);
+escenario07.rotation.set(0,-1.57,0);
+escenario07.receiveShadow = true;
+escenario07.castShadow = true;
+
+//botella
+var escenario08 = botella({x:0,y:0,z:0});
+scene.add(escenario08);
+escenario08.position.set(20, 61, 85);
+escenario08.scale.set(1.5,1.5,1.5);
+escenario08.receiveShadow = true;
+escenario08.castShadow = true;
+
+
+
+//taza
+var escenario09 = taza({x:0,y:0,z:0});
+scene.add(escenario09);
+escenario09.position.set(0, 61, 80);
+escenario09.scale.set(1.5,1.5,1.5);
+escenario09.rotation.set(0,-0.9,0);
+escenario09.receiveShadow = true;
+escenario09.castShadow = true;
+
+var taza2 = escenario09.clone(); 
+scene.add(taza2); 
+taza2.position.set(-40, 61, 80); 
+
+var taza4 = escenario09.clone(); 
+scene.add(taza4); 
+taza4.position.set(-80, 61, 80); 
+
+var taza3 = escenario09.clone(); 
+scene.add(taza3); 
+taza3.position.set(-80, 61, 25); 
+taza3.rotation.set(0,-0.5,0);
+
+var taza5 = escenario09.clone(); 
+scene.add(taza5); 
+taza5.position.set(-40, 61, 25); 
+taza5.rotation.set(0,-0.5,0);
+
+var taza6 = escenario09.clone(); 
+scene.add(taza6); 
+taza6.position.set(0, 61, 25); 
+taza6.rotation.set(0,-0.5,0);
+
+//cruz
+var escenario10 = cruz({x:0,y:0,z:0});
+scene.add(escenario10);
+escenario10.position.set(130, 62, 100);
+escenario10.scale.set(25,25,25);
+escenario10.rotation.set(0,1.57,0);
+escenario10.receiveShadow = true;
+escenario10.castShadow = true;
+
+var cruz2 = escenario10.clone(); 
+scene.add(cruz2); 
+cruz2.position.set(130, 62, 160); 
+
+//copal
+var escenario11 = copal({x:0,y:0,z:0});
+scene.add(escenario11);
+escenario11.position.set(60, 61, 105);
+escenario11.scale.set(1,1.5,1);
+escenario11.receiveShadow = true;
+escenario11.castShadow = true;
+var copal2 = escenario11.clone(); 
+scene.add(copal2); 
+copal2.position.set(60, 61, 55); 
+
+//pan
+var escenario12 = pan({x:0,y:0,z:0});
+scene.add(escenario12);
+escenario12.position.set(-15, 61, 115);
+escenario12.scale.set(0.5,0.5,0.5);
+escenario12.receiveShadow = true;
+escenario12.castShadow = true;
+
+var pan2 = escenario12.clone(); 
+scene.add(pan2); 
+pan2.position.set(-55, 61, 115); 
+
+var pan3 = escenario12.clone(); 
+scene.add(pan3); 
+pan3.position.set(25, 61, 115); 
+
+var pan4 = escenario12.clone(); 
+scene.add(pan4); 
+pan4.position.set(-25, 61, 47); 
+
+var pan5 = escenario12.clone(); 
+scene.add(pan5); 
+pan5.position.set(-65, 61, 47); 
+
+var pan6 = escenario12.clone(); 
+scene.add(pan6); 
+pan6.position.set(15, 61, 47); 
+
+
+
+//cigarros
+var escenario12 = cig({x:0,y:0,z:0});
+scene.add(escenario12);
+escenario12.position.set(-15, 63, 90);
+escenario12.rotation.set(0,1.57,0);
+escenario12.scale.set(3.5,3.5,3.5);
+escenario12.receiveShadow = true;
+escenario12.castShadow = true;
+
+//vaso
+var escenario13 = vaso({x:0,y:0,z:0});
+scene.add(escenario13);
+escenario13.position.set(70, 70, 96);
+escenario13.rotation.set(0,1.57,0);
+escenario13.scale.set(1,1,1);
+escenario13.receiveShadow = true;
+escenario13.castShadow = true;
+
+//vaso2
+var escenario14 = vaso2({x:0,y:0,z:0});
+//scene.add(escenario14);
+escenario14.position.set(-45, 70, 80);
+escenario14.scale.set(8,8,8);
+escenario14.receiveShadow = true;
+escenario14.castShadow = true;
+
+//CALAVERA
+var escenario15 = cal({x:0,y:0,z:0});
+scene.add(escenario15);
+escenario15.position.set(-15, 61, 60);
+escenario15.scale.set(0.5,0.5,0.5);
+escenario15.rotation.set(0,-1.57,0);
+escenario15.receiveShadow = true;
+escenario15.castShadow = true;
+
+//florcemp
+var escenario16 = cem({x:0,y:0,z:0});
+scene.add(escenario16);
+escenario16.position.set(-15, 57, 60);
+escenario16.scale.set(3,3,3);
+escenario16.rotation.set(0,3.14,0);
+escenario16.receiveShadow = true;
+escenario16.castShadow = true;
+
+var cemp1 = escenario16.clone(); 
+scene.add(cemp1); 
+cemp1.position.set(-10, 57, 60); 
+
+var cemp2 = escenario16.clone(); 
+scene.add(cemp2); 
+cemp2.position.set(-5, 57, 60); 
+
+var cemp3 = escenario16.clone(); 
+scene.add(cemp3); 
+cemp3.position.set(0, 57, 60); 
+
+var cemp4 = escenario16.clone(); 
+scene.add(cemp4); 
+cemp4.position.set(5, 57, 60); 
+
+var cemp5 = escenario16.clone(); 
+scene.add(cemp5); 
+cemp5.position.set(10, 57, 60); 
+
+var cemp6 = escenario16.clone(); 
+scene.add(cemp6); 
+cemp6.position.set(15, 57, 60); 
+
+var cemp7 = escenario16.clone(); 
+scene.add(cemp7); 
+cemp7.position.set(20, 57, 60); 
+
+var cemp8 = escenario16.clone(); 
+scene.add(cemp8); 
+cemp8.position.set(25, 57, 60); 
+
+var cemp9 = escenario16.clone(); 
+scene.add(cemp9); 
+cemp9.position.set(30, 57, 60); 
+
+var cemp10 = escenario16.clone(); 
+scene.add(cemp10); 
+cemp10.position.set(35, 57, 60);
+
+var cemp11 = escenario16.clone(); 
+scene.add(cemp11); 
+cemp11.position.set(40, 57, 60); 
+
+var cemp12 = escenario16.clone(); 
+scene.add(cemp12); 
+cemp12.position.set(45, 57, 60); 
+
+var cemp13 = escenario16.clone(); 
+scene.add(cemp13); 
+cemp13.position.set(50, 57, 60); 
+
+var cemp14 = escenario16.clone(); 
+scene.add(cemp14); 
+cemp14.position.set(55, 57, 60); 
+
+var cemp15 = escenario16.clone(); 
+scene.add(cemp15); 
+cemp15.position.set(60, 57, 60); 
+
+var cemp16 = escenario16.clone(); 
+scene.add(cemp16); 
+cemp16.position.set(65, 57, 60); 
+
+var cemp16 = escenario16.clone(); 
+scene.add(cemp16); 
+cemp16.position.set(-20, 57, 60); 
+
+var cemp17 = escenario16.clone(); 
+scene.add(cemp17); 
+cemp17.position.set(-25, 57, 60); 
+
+var cemp18 = escenario16.clone(); 
+scene.add(cemp18); 
+cemp18.position.set(-30, 57, 60); 
+
+var cemp19 = escenario16.clone(); 
+scene.add(cemp19); 
+cemp19.position.set(-35, 57, 60); 
+
+var cemp20 = escenario16.clone(); 
+scene.add(cemp20); 
+cemp20.position.set(-40, 57, 60); 
+
+var cemp21 = escenario16.clone(); 
+scene.add(cemp21); 
+cemp21.position.set(-45, 57, 60); 
+
+var cemp22 = escenario16.clone(); 
+scene.add(cemp22); 
+cemp22.position.set(-50, 57, 60); 
+
+var cemp23 = escenario16.clone(); 
+scene.add(cemp23); 
+cemp23.position.set(-55, 57, 60); 
+
+var cemp24 = escenario16.clone(); 
+scene.add(cemp24); 
+cemp24.position.set(-60, 57, 60); 
+
+var cemp25 = escenario16.clone(); 
+//scene.add(cemp25); 
+cemp25.position.set(-65, 57, 60);
+
+var cemp26 = escenario16.clone(); 
+scene.add(cemp26); 
+cemp26.position.set(-10, 57, 100); 
+
+var cemp27 = escenario16.clone(); 
+scene.add(cemp27); 
+cemp27.position.set(-5, 57, 100); 
+
+var cemp28 = escenario16.clone(); 
+scene.add(cemp28); 
+cemp28.position.set(0, 57, 100); 
+
+var cemp29 = escenario16.clone(); 
+scene.add(cemp29); 
+cemp29.position.set(5, 57, 100); 
+
+var cemp30 = escenario16.clone(); 
+scene.add(cemp30); 
+cemp30.position.set(10, 57, 100); 
+
+var cemp31 = escenario16.clone(); 
+scene.add(cemp31); 
+cemp31.position.set(15, 57, 100); 
+
+var cemp32 = escenario16.clone(); 
+scene.add(cemp32); 
+cemp32.position.set(20, 57, 100); 
+
+var cemp33 = escenario16.clone(); 
+scene.add(cemp33); 
+cemp33.position.set(25, 57, 100); 
+
+var cemp34 = escenario16.clone(); 
+scene.add(cemp34); 
+cemp34.position.set(30, 57, 100); 
+
+var cemp35 = escenario16.clone(); 
+scene.add(cemp35); 
+cemp35.position.set(35, 57, 100);
+
+var cemp36 = escenario16.clone(); 
+scene.add(cemp36); 
+cemp36.position.set(40, 57, 100); 
+
+var cemp37 = escenario16.clone(); 
+scene.add(cemp37); 
+cemp37.position.set(45, 57, 100); 
+
+var cemp38 = escenario16.clone(); 
+scene.add(cemp38); 
+cemp38.position.set(50, 57, 100); 
+
+var cemp39 = escenario16.clone(); 
+scene.add(cemp39); 
+cemp39.position.set(55, 57, 100); 
+
+var cemp40 = escenario16.clone(); 
+scene.add(cemp40); 
+cemp40.position.set(60, 57, 100); 
+
+var cemp41 = escenario16.clone(); 
+scene.add(cemp41); 
+cemp41.position.set(-20, 57, 100); 
+
+var cemp42 = escenario16.clone(); 
+scene.add(cemp42); 
+cemp42.position.set(-25, 57, 100); 
+
+var cemp43 = escenario16.clone(); 
+scene.add(cemp43); 
+cemp43.position.set(-30, 57, 100); 
+
+var cemp44 = escenario16.clone(); 
+scene.add(cemp44); 
+cemp44.position.set(-35, 57, 100); 
+
+var cemp45 = escenario16.clone(); 
+scene.add(cemp45); 
+cemp45.position.set(-40, 57, 100); 
+
+var cemp46 = escenario16.clone(); 
+scene.add(cemp46); 
+cemp46.position.set(-45, 57, 100); 
+
+var cemp47 = escenario16.clone(); 
+scene.add(cemp47); 
+cemp47.position.set(-50, 57, 100); 
+
+var cemp48 = escenario16.clone(); 
+scene.add(cemp48); 
+cemp48.position.set(-55, 57, 100); 
+
+var cemp49 = escenario16.clone(); 
+scene.add(cemp49); 
+cemp49.position.set(-60, 57, 100); 
+
+var cemp50 = escenario16.clone(); 
+scene.add(cemp50); 
+cemp50.position.set(-65, 57, 100);
+
+
+var cemp51 = escenario16.clone(); 
+scene.add(cemp50); 
+cemp50.position.set(-15, 57, 100);
+
+
+//copal2
+var escenario18 = copal3({x:0,y:0,z:0});
+scene.add(escenario18);
+escenario18.position.set(-40, 60, 70);
+escenario18.scale.set(10,10,10);
+escenario18.receiveShadow = true;
+escenario18.castShadow = true;
+
+//🎰🎰Rendering y animación
+
+    requestAnimationFrame(render);
+    function render() {
+        //🪄🪄 Animación -
+ 
+        //🎮🎮Actualización del OrbitControls para generar la suavidad de movimiento
+        controls.update();
+ 
+        //Llamado para renderizar y volver a llamar a la misma función (render)
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+       
+        //animacion
+       
+    }
+   
+</script>
+</body>
+</html>
+ 

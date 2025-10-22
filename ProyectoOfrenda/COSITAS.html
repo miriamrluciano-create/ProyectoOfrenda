@@ -1,0 +1,272 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>OBJETOS DE OFRENDA</title>
+</head>
+<body>
+    
+<canvas id="myCanvas">
+    <!--El elemento HTML canvas se puede utilizar para dibujar gráficos a través de 
+        secuencias de comandos (por lo general JavaScript ).-->
+</canvas>
+
+<!-- Aquí va todo el código de three.js -->
+<!-- script type="importmap" importa las librerías necesarias para three.js-->
+<script type="importmap"> 
+    {
+        "imports":{
+            "three": "./js/three.module.js",
+            "three/OrbitControls": "./js/OrbitControls.js" 
+        }
+}
+</script>
+<script type="module"> 
+//🗃️🗃️ Mandar llamar a la librería
+    import * as THREE from 'three'; 
+    import {OrbitControls} from 'three/OrbitControls';
+    console.log(OrbitControls);
+    import {RoundedBoxGeometry} from "./js/RoundedBoxGeometry.js"
+
+//🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
+    var renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('myCanvas'), antialias: true,
+    });
+    renderer.setPixelRatio(window.decivePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0xEDADD4);
+
+
+// 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
+    var scene = new THREE.Scene();
+
+//🎥🎥 Agregar una cámara de perspectiva
+    var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight,0.1,2000
+      );
+    scene.add(camera);
+
+    //Settings de la cámara
+    camera.position.set(0, 10, 60);
+
+    // Añadiendo los OrbitControls
+    var controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+    var gridHelper = new THREE.GridHelper(50,50,25);
+    scene.add (gridHelper);
+
+    var helper = new THREE.PolarGridHelper(20,16,20,64);
+    //scene.add (helper);
+
+    var axesHelper = new THREE.AxesHelper(500);
+   // scene.add (axesHelper);
+
+
+// Espacio para colocar los objetos
+
+//PAPEL PICADO 
+var papelBaseGeo = new THREE.PlaneGeometry(3,1);
+var papelBaseMat = new THREE.MeshLambertMaterial({color:0xFF69B4, side:THREE.DoubleSide});
+var papelBase = new THREE.Mesh(papelBaseGeo, papelBaseMat);
+scene.add(papelBase);
+papelBase.position.set(0,2,-3);
+
+
+var papelGeo = new THREE.PlaneGeometry(3, 1.2);
+var papelMat = new THREE.MeshLambertMaterial({color:0xFF66B2, side:THREE.DoubleSide});
+var papel = new THREE.Mesh(papelGeo, papelMat);
+scene.add(papel);
+papel.position.set(0, 2, -3);
+
+// Agujeros
+var agujero1Geo = new THREE.PlaneGeometry(0.3, 0.2);
+var agujero1Mat = new THREE.MeshLambertMaterial({color:0xFFFFFF, side:THREE.DoubleSide});
+var agujero1 = new THREE.Mesh(agujero1Geo, agujero1Mat);
+scene.add(agujero1);
+agujero1.position.set(-0.6, 2, -2.95);
+
+var agujero2Geo = new THREE.PlaneGeometry(0.3, 0.2);
+var agujero2Mat = new THREE.MeshLambertMaterial({color:0xFFFFFF, side:THREE.DoubleSide});
+var agujero2 = new THREE.Mesh(agujero2Geo, agujero2Mat);
+scene.add(agujero2);
+agujero2.position.set(0, 2, -2.95);
+
+var agujero3Geo = new THREE.PlaneGeometry(0.3, 0.2);
+var agujero3Mat = new THREE.MeshLambertMaterial({color:0xFFFFFF, side:THREE.DoubleSide});
+var agujero3 = new THREE.Mesh(agujero3Geo, agujero3Mat);
+scene.add(agujero3);
+agujero3.position.set(0.6, 2, -2.95);
+
+// agujeros pequeños 
+var decor1Geo = new THREE.PlaneGeometry(0.15, 0.15);
+var decor1Mat = new THREE.MeshLambertMaterial({color:0xFFFFFF, side:THREE.DoubleSide});
+var decor1 = new THREE.Mesh(decor1Geo, decor1Mat);
+scene.add(decor1);
+decor1.position.set(-0.9, 1.9, -2.95);
+
+var decor2Geo = new THREE.PlaneGeometry(0.15, 0.15);
+var decor2 = new THREE.Mesh(decor2Geo, decor1Mat);
+scene.add(decor2);
+decor2.position.set(-0.45, 1.9, -2.95);
+
+var decor3Geo = new THREE.PlaneGeometry(0.15, 0.15);
+var decor3 = new THREE.Mesh(decor3Geo, decor1Mat);
+scene.add(decor3);
+decor3.position.set(0, 1.9, -2.95);
+
+var decor4Geo = new THREE.PlaneGeometry(0.15, 0.15);
+var decor4 = new THREE.Mesh(decor4Geo, decor1Mat);
+scene.add(decor4);
+decor4.position.set(0.45, 1.9, -2.95);
+
+var decor5Geo = new THREE.PlaneGeometry(0.15, 0.15);
+var decor5 = new THREE.Mesh(decor5Geo, decor1Mat);
+scene.add(decor5);
+decor5.position.set(0.9, 1.9, -2.95);
+
+
+//COPAL
+var copal1Geo = new THREE.CylinderGeometry(0.15,0.15,0.5,16);
+var copalMat = new THREE.MeshLambertMaterial({color:0x8B4513});
+var copal1 = new THREE.Mesh(copal1Geo, copalMat);
+scene.add(copal1);
+copal1.position.set(1.5,0.25,1);
+
+var humo1Geo = new THREE.SphereGeometry(0.05,8,8);
+var humo1Mat = new THREE.MeshLambertMaterial({color:0xCCCCCC});
+var humo1 = new THREE.Mesh(humo1Geo, humo1Mat);
+scene.add(humo1);
+humo1.position.set(1.5,0.55,1);
+
+var copal2Geo = new THREE.CylinderGeometry(0.15,0.15,0.5,16);
+var copal2 = new THREE.Mesh(copal2Geo, copalMat);
+scene.add(copal2);
+copal2.position.set(-1.5,0.25,1.2);
+
+var humo2Geo = new THREE.SphereGeometry(0.05,8,8);
+var humo2 = new THREE.Mesh(humo2Geo, humo1Mat);
+scene.add(humo2);
+humo2.position.set(-1.5,0.55,1.2);
+
+//CIGARROS
+// Base de la cajetilla
+var geometryBase = new THREE.BoxGeometry(1.2, 1.4, 0.5);
+var materialBase = new THREE.MeshLambertMaterial({ color: 0xffffff });
+var base = new THREE.Mesh(geometryBase, materialBase);
+scene.add(base);
+base.position.set(0, 0, 0);
+
+// Parte roja inferior
+var geometryRojo = new THREE.BoxGeometry(1.1, 0.4, 0.51);
+var materialRojo = new THREE.MeshLambertMaterial({ color: 0xd32f2f });
+var rojo = new THREE.Mesh(geometryRojo, materialRojo);
+scene.add(rojo);
+rojo.position.set(0, -0.5, 0);
+
+// Tapa (parte superior abierta)
+var geometryTapa = new THREE.BoxGeometry(1, 0.3, 0.5);
+var materialTapa = new THREE.MeshLambertMaterial({ color: 0xd32f2f });
+var tapa = new THREE.Mesh(geometryTapa, materialTapa);
+scene.add(tapa);
+tapa.position.set(0, 0.85, 0.1);
+
+// MATERIALES
+var materialCuerpo = new THREE.MeshLambertMaterial({ color: 0x5c3a21 }); // marrón del puro
+var materialPunta = new THREE.MeshLambertMaterial({ color: 0x3b1f0f }); // más oscuro (punta encendida)
+var materialEtiqueta = new THREE.MeshLambertMaterial({ color: 0xd4af37 }); // dorado tipo anillo
+
+// CUERPO DEL PURO
+var cuerpo = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 2, 32), materialCuerpo);
+scene.add(cuerpo);
+cuerpo.position.set(5, 1, 0);
+
+// PUNTA OSCURA 
+var punta = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.1, 32), materialPunta);
+punta.position.y = 1.05; // arriba del puro
+cuerpo.add(punta);
+
+// ANILLO DORADO 
+var anillo = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.1, 32), materialEtiqueta);
+anillo.position.y = -0.3;
+cuerpo.add(anillo);
+cuerpo.rotation.z = 2;
+
+// VASO (más ancho arriba)
+var geometryVaso = new THREE.CylinderGeometry(0.3, 0.15, 1, 32); // arriba, abajo, alto
+var materialVaso = new THREE.MeshLambertMaterial({
+    color: 0xcfd8dc, // gris claro (vidrio)
+    //transparent: true,
+    //opacity: 0.5,
+});
+
+// AGUA (un poco más baja y adentro del vaso)
+var geometryAgua = new THREE.CylinderGeometry(0.28, 0.13, 0.7, 32);
+var materialAgua = new THREE.MeshLambertMaterial({
+    color: 0x9fd8ff, // azul clarito
+    //transparent: true,
+   // opacity: 0.7,
+});
+var agua = new THREE.Mesh(geometryAgua, materialAgua);
+scene.add(agua);
+agua.position.set(-3, 1, 0);
+
+// BASE DEL VASO
+var geometryBase = new THREE.CircleGeometry(0.15, 32); // base más chica
+var materialBase = new THREE.MeshLambertMaterial({ color: 0xcfd8dc });
+var base = new THREE.Mesh(geometryBase, materialBase);
+base.rotation.x = 2;
+base.position.set(0, 0, 0);
+scene.add(base);
+
+
+//BOTELLA
+var cuerpoBotellaGeo = new THREE.CylinderGeometry(0.2,0.2,1,16);
+var cuerpoBotellaMat = new THREE.MeshLambertMaterial({color:0x008000});
+var cuerpoBotella = new THREE.Mesh(cuerpoBotellaGeo, cuerpoBotellaMat);
+scene.add(cuerpoBotella);
+cuerpoBotella.position.set(0,0.6,2);
+
+var cuelloBotellaGeo = new THREE.CylinderGeometry(0.1,0.1,0.4,16);
+var cuelloBotella = new THREE.Mesh(cuelloBotellaGeo,cuerpoBotellaMat);
+scene.add(cuelloBotella);
+cuelloBotella.position.set(0,1.2,2);
+
+//CRUZ 
+var cruzVerticalGeo = new THREE.BoxGeometry(0.2,1,0.1);
+var cruzMat = new THREE.MeshLambertMaterial({color:0x654321});
+var cruzVertical = new THREE.Mesh(cruzVerticalGeo, cruzMat);
+scene.add(cruzVertical);
+cruzVertical.position.set(2,0.5,-2);
+
+var cruzHorizontalGeo = new THREE.BoxGeometry(0.6,0.2,0.1);
+var cruzHorizontal = new THREE.Mesh(cruzHorizontalGeo, cruzMat);
+scene.add(cruzHorizontal);
+cruzHorizontal.position.set(2,0.7,-2);
+
+
+
+
+//luces
+var light1 = new THREE.DirectionalLight(0xFFFFFF,0.8);
+light1.position.set(50,50,50);
+scene.add(light1);
+ 
+//🎰🎰Rendering y animación
+    requestAnimationFrame(render);
+    function render() {
+
+    //🪄🪄 Animación - 
+   // flor1.rotation.x +=0.01;
+   // flor2.rotation.y -=0.01;
+   // flor3.rotation.z -=0.01;
+
+    //🎮🎮Actualización del OrbitControls para generar la suavidad de movimiento
+    controls.update();
+
+    //Llamado para renderizar y volver a llamar a la misma función (render)
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+    }
+</script>
+</body>
+</html>

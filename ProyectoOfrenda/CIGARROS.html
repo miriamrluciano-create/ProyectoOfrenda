@@ -1,0 +1,118 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>CAJA DE CIGARROS</title>
+</head>
+<body>
+    
+<canvas id="myCanvas">
+    <!--El elemento HTML canvas se puede utilizar para dibujar gráficos a través de 
+        secuencias de comandos (por lo general JavaScript ).-->
+</canvas>
+
+<!-- Aquí va todo el código de three.js -->
+<!-- script type="importmap" importa las librerías necesarias para three.js-->
+<script type="importmap"> 
+    {
+        "imports":{
+            "three": "./js/three.module.js",
+            "three/OrbitControls": "./js/OrbitControls.js" 
+        }
+}
+</script>
+<script type="module"> 
+//🗃️🗃️ Mandar llamar a la librería
+    import * as THREE from 'three'; 
+    import {OrbitControls} from 'three/OrbitControls';
+    console.log(OrbitControls);
+    import {RoundedBoxGeometry} from "./js/RoundedBoxGeometry.js"
+
+//🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
+    var renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('myCanvas'), antialias: true,
+    });
+    renderer.setPixelRatio(window.decivePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0xEDADD4);
+
+
+// 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
+    var scene = new THREE.Scene();
+
+//🎥🎥 Agregar una cámara de perspectiva
+    var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight,0.1,2000
+      );
+    scene.add(camera);
+
+    //Settings de la cámara
+    camera.position.set(0, 10, 60);
+
+    // Añadiendo los OrbitControls
+    var controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+    var gridHelper = new THREE.GridHelper(50,50,25);
+    scene.add (gridHelper);
+
+    var helper = new THREE.PolarGridHelper(20,16,20,64);
+    //scene.add (helper);
+
+    var axesHelper = new THREE.AxesHelper(500);
+   // scene.add (axesHelper);
+
+
+// Espacio para colocar los objetos
+
+
+
+//CIGARROS
+// Base de la cajetilla
+var geometryBase = new THREE.BoxGeometry(1.2, 1.4, 0.5);
+var materialBase = new THREE.MeshLambertMaterial({ color: 0xffffff });
+var base = new THREE.Mesh(geometryBase, materialBase);
+scene.add(base);
+base.position.set(0, 0, 0);
+
+// Parte roja inferior
+var geometryRojo = new THREE.BoxGeometry(1.1, 0.4, 0.51);
+var materialRojo = new THREE.MeshLambertMaterial({ color: 0xd32f2f });
+var rojo = new THREE.Mesh(geometryRojo, materialRojo);
+scene.add(rojo);
+rojo.position.set(0, -0.5, 0);
+
+// Tapa (parte superior abierta)
+var geometryTapa = new THREE.BoxGeometry(1, 0.3, 0.5);
+var materialTapa = new THREE.MeshLambertMaterial({ color: 0xd32f2f });
+var tapa = new THREE.Mesh(geometryTapa, materialTapa);
+scene.add(tapa);
+tapa.position.set(0, 0.85, 0.1);
+
+
+
+
+
+//luces
+var light1 = new THREE.DirectionalLight(0xFFFFFF,0.8);
+light1.position.set(50,50,50);
+scene.add(light1);
+ 
+//🎰🎰Rendering y animación
+    requestAnimationFrame(render);
+    function render() {
+
+    //🪄🪄 Animación - 
+   // flor1.rotation.x +=0.01;
+   // flor2.rotation.y -=0.01;
+   // flor3.rotation.z -=0.01;
+
+    //🎮🎮Actualización del OrbitControls para generar la suavidad de movimiento
+    controls.update();
+
+    //Llamado para renderizar y volver a llamar a la misma función (render)
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>Práctica 01</title>
+</head>
+<body>
+    
+<canvas id="myCanvas">
+    <!--El elemento HTML canvas se puede utilizar para dibujar gráficos a través de 
+        secuencias de comandos (por lo general JavaScript ).-->
+</canvas>
+
+<!-- Aquí va todo el código de three.js -->
+<!-- script type="importmap" importa las librerías necesarias para three.js-->
+<script type="importmap"> 
+    {
+        "imports":{
+            "three": "./js/three.module.js",
+            "three/OrbitControls": "./js/OrbitControls.js" 
+        }
+}
+</script>
+<script type="module"> 
+//🗃️🗃️ Mandar llamar a la librería
+    import * as THREE from 'three'; 
+    import {OrbitControls} from 'three/OrbitControls';
+    console.log(OrbitControls);
+ import {RoundedBoxGeometry} from "./js/RoundedBoxGeometry.js"
+
+//🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
+    var renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('myCanvas'), antialias: true,
+    });
+    renderer.setPixelRatio(window.decivePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x70707C);
+
+
+// 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
+    var scene = new THREE.Scene();
+
+//🎥🎥 Agregar una cámara de perspectiva
+    var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight,0.1,2000
+      );
+    scene.add(camera);
+
+    //Settings de la cámara
+    camera.position.set(0, 100, 300);
+
+    // Añadiendo los OrbitControls
+    var controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+// Espacio para colocar los objetos
+//Luz
+ var light = new THREE.DirectionalLight(0xFFFFFF,1.5);
+ 
+light.position.set(0, 45, 60);
+light.target.position.set(0, 0, 0); //cuando hay sombra
+light.castShadow = true;
+light.shadow.bias = 0.01;
+light.shadow.mapSize.width = 512*3;
+light.shadow.mapSize.height = 512*3;
+light.shadow.camera.top = 50;
+light.shadow.camera.bottom = -50;
+light.shadow.camera.left = -50;
+light.shadow.camera.right = 50;
+light.shadow.camera.visible=true;
+var directionalHelper = new THREE.CameraHelper(light.shadow.camera);
+//scene.add(directionalHelper);
+scene.add(light);
+
+
+    //textura
+    var loader = new THREE.TextureLoader();
+    var textmadera = loader.load('./image/fondo.jpg');
+    scene.background = textmadera; 
+
+    //base
+    var base = new THREE.BoxGeometry (800, 0.10, 400, 5, 5, 5);
+    var material1 = new THREE.MeshLambertMaterial(
+            {
+                color:0xFFFFFF, side: THREE.DoubleSide
+            }
+        );
+    var mesh99 = new THREE.Mesh(base,material1);
+    scene.add(mesh99);
+    mesh99.position.set(8,0,0);
+    mesh99.receiveShadow = true;
+ //TrajineraBase
+    var basetraji1 = new THREE.BoxGeometry (260,10,130,5,5,5);
+        var material1 = new THREE.MeshLambertMaterial(
+            {
+                color:0x2F7E96, side: THREE.DoubleSide
+            }
+        );
+    var mesh1 = new THREE.Mesh(basetraji1,material1);
+    scene.add(mesh1);
+    mesh1.position.set(0,10,0);
+    mesh1.receiveShadow = true;
+    mesh1.castShadow = true;
+
+    var basetraji2 = new THREE.BoxGeometry (280,10,130,5,5,5);
+    var mesh2 = new THREE.Mesh(basetraji2,material1);
+    scene.add(mesh2);
+    mesh2.position.set(0,20,0);
+    mesh2.receiveShadow = true;
+    mesh2.castShadow = true;
+
+    var basetraji3 = new THREE.BoxGeometry (300,10,150,5,5,5);
+        var material2 = new THREE.MeshLambertMaterial(
+            {
+                color:0xB8AB3E, side: THREE.DoubleSide
+            }
+        );
+    var mesh3 = new THREE.Mesh(basetraji3,material2);
+    scene.add(mesh3);
+    mesh3.position.set(0,30,0);
+    mesh3.receiveShadow = true;
+    mesh3.castShadow = true;
+
+    var basetraji4 = new THREE.BoxGeometry (280,5,130,5,5,5);
+        var material3 = new THREE.MeshLambertMaterial(
+            {
+                color:0xB83E3E, side: THREE.DoubleSide
+            }
+        );
+    var mesh4 = new THREE.Mesh(basetraji4,material3);
+    scene.add(mesh4);
+    mesh4.position.set(0,33,0);
+    mesh4.receiveShadow = true;
+    mesh4.castShadow = true;
+    mesh4.castShadow = true;
+
+//PalosTrajinera
+    //palo1
+    var palotraj = new THREE.CylinderGeometry (3,3,100,50,6.283,false);
+    
+    var mesh5 = new THREE.Mesh(palotraj,material3);
+    scene.add(mesh5);
+    mesh5.position.set(100,80,60);
+    mesh5.receiveShadow = true;
+    mesh5.castShadow = true;
+    //palo2
+    var mesh6 = new THREE.Mesh(palotraj,material3);
+    scene.add(mesh6);
+    mesh6.position.set(-100,80,60);
+    mesh6.receiveShadow = true;
+    mesh6.castShadow = true;
+    //palo3
+    var mesh7 = new THREE.Mesh(palotraj,material3);
+    scene.add(mesh7);
+    mesh7.position.set(-100,80,-60);
+    mesh7.receiveShadow = true;
+    mesh7.castShadow = true;
+   //palo4
+    var mesh8 = new THREE.Mesh(palotraj,material3);
+    scene.add(mesh8);
+    mesh8.position.set(100,80,-60);
+    mesh8.receiveShadow = true;
+    mesh8.castShadow = true;
+//TechoTrajinera
+    var techo = new THREE.CylinderGeometry (85,85,220,50,1,true,1.5708,	1.871);
+        var material4 = new THREE.MeshLambertMaterial(
+            {
+                color:0x2F7E96, side: THREE.DoubleSide
+            }
+        );
+    var mesh9 = new THREE.Mesh(techo,material4);
+    scene.add(mesh9);
+    mesh9.position.set(6,74,0);
+    mesh9.receiveShadow = true;
+    mesh9.castShadow = true;
+    mesh9.rotation.x = 0.94;
+    mesh9.rotation.z = 1.57;
+//PalosLados
+    var palolado = new THREE.CylinderGeometry (3,3,200,50,6.283,false);
+
+    var mesh11 = new THREE.Mesh(palolado,material3);
+    scene.add(mesh11);
+    mesh11.position.set(0,60,60);
+    mesh11.receiveShadow = true;
+    mesh11.castShadow = true;
+    mesh11.rotation.z = 1.57; 
+    
+    var mesh12 = new THREE.Mesh(palolado,material3);
+    scene.add(mesh12);
+    mesh12.position.set(0,60,-60);
+    mesh12.castShadow = true;
+    mesh12.receiveShadow = true;
+    mesh12.rotation.z = 1.57; 
+//Mesa
+    //tabla
+    var tabla = new THREE.BoxGeometry (180,3,80,5,5,5);
+        var material5 = new THREE.MeshLambertMaterial(
+            {
+                color:0x78B550, side: THREE.DoubleSide
+            }
+        );
+    var mesh13 = new THREE.Mesh(tabla,material5);
+    scene.add(mesh13);
+    mesh13.position.set(0,60,0);
+    mesh13.receiveShadow = true;
+    mesh13.castShadow = true;
+    //palos
+
+    var palomesa = new THREE.CylinderGeometry (1.5,1.5,25,50,6.283,false);
+    var material6 = new THREE.MeshLambertMaterial(
+            {
+                color:0x78B550, side: THREE.DoubleSide
+            }
+        );
+    var mesh13 = new THREE.Mesh(palomesa,material6);
+    scene.add(mesh13);
+    mesh13.position.set(85,48,35);
+    mesh13.receiveShadow = true;
+    mesh13.castShadow = true;
+
+    var mesh14 = new THREE.Mesh(palomesa,material6);
+    scene.add(mesh14);
+    mesh14.position.set(-85,48,35);
+    mesh14.receiveShadow = true;
+    mesh14.castShadow = true;
+
+    var mesh15 = new THREE.Mesh(palomesa,material6);
+    scene.add(mesh15);
+    mesh15.position.set(-85,48,-35);
+    mesh15.receiveShadow = true;
+    mesh15.castShadow = true;
+
+    var mesh16 = new THREE.Mesh(palomesa,material6);
+    scene.add(mesh16);
+    mesh16.position.set(85,48,-35);
+    mesh16.receiveShadow = true;
+    mesh16.castShadow = true;
+
+//Silla
+    var basesilla = new THREE.BoxGeometry (20,3,20,5,5,5);
+    var material7 = new THREE.MeshLambertMaterial(
+            {
+                color:0xBF60B4, side: THREE.DoubleSide
+            }
+        );
+    var mesh17 = new THREE.Mesh(basesilla,material7);
+   // scene.add(mesh17);
+    mesh17.position.set(0,50,45);
+    mesh17.receiveShadow = true;
+    mesh17.castShadow = true;   
+    //palos
+    var palosilla = new THREE.CylinderGeometry (1,1,20,50,6.283,false);
+    var mesh18 = new THREE.Mesh(palosilla,material7);
+   // scene.add(mesh18);
+    mesh18.position.set(7,40,38);
+    mesh18.receiveShadow = true;
+    mesh18.castShadow = true;
+
+    var palosilla = new THREE.CylinderGeometry (1,1,20,50,6.283,false);
+    var mesh19 = new THREE.Mesh(palosilla,material7);
+    //scene.add(mesh19);
+    mesh19.position.set(-7,40,38);
+    mesh19.receiveShadow = true;
+    mesh19.castShadow = true;
+
+    var palosilla = new THREE.CylinderGeometry (1,1,20,50,6.283,false);
+    var mesh20 = new THREE.Mesh(palosilla,material7);
+    //scene.add(mesh20);
+    mesh20.position.set(-7,40,53);
+    mesh20.receiveShadow = true;
+    mesh20.castShadow = true;
+
+    var palosilla = new THREE.CylinderGeometry (1,1,20,50,6.283,false);
+    var mesh21 = new THREE.Mesh(palosilla,material7);
+    //scene.add(mesh21);
+    mesh21.position.set(7,40,53);
+    mesh21.receiveShadow = true;
+    mesh21.castShadow = true;
+    
+    //respaldo
+    var palosilla = new THREE.CylinderGeometry (1,1,20,50,6.283,false);
+    var mesh22 = new THREE.Mesh(palosilla,material7);
+    //scene.add(mesh22);
+    mesh22.position.set(-7,60,53);
+    mesh22.receiveShadow = true;
+    mesh22.castShadow = true;
+
+    var palosilla = new THREE.CylinderGeometry (1,1,20,50,6.283,false);
+    var mesh23 = new THREE.Mesh(palosilla,material7);
+   // scene.add(mesh23);
+    mesh23.position.set(7,60,53);
+    mesh23.receiveShadow = true;
+    mesh23.castShadow = true;
+
+    var palosilla = new THREE.CylinderGeometry (1,1,15,50,6.283,false);
+    var mesh24 = new THREE.Mesh(palosilla,material7);
+    //scene.add(mesh24);
+    mesh24.position.set(0,63,53);
+    mesh24.receiveShadow = true;
+    mesh24.castShadow = true;
+    mesh24.rotation.z = 1.57;
+
+//Grupo de la suilla
+var silla1 = new THREE.Group(); 
+silla1.add(mesh17,mesh18,mesh19,mesh20,mesh21,mesh22,mesh23,mesh24); 
+scene.add(silla1);
+silla1.position.set(-60,6,0)
+
+var silla2 = silla1.clone(); 
+scene.add(silla2); 
+silla2.position.set(-20,6,0); 
+
+var silla3 = silla1.clone(); 
+scene.add(silla3); 
+silla3.position.set(20,6,0); 
+
+var silla4 = silla1.clone(); 
+scene.add(silla4); 
+silla4.position.set(60,6,0);
+
+var silla5 = silla1.clone(); 
+scene.add(silla5); 
+silla5.position.set(-60,6,0);
+silla5.rotation.y = 3.14; 
+
+var silla6 = silla1.clone(); 
+scene.add(silla6); 
+silla6.position.set(-20,6,0); 
+silla6.rotation.y = 3.14; 
+
+var silla7 = silla1.clone(); 
+scene.add(silla7); 
+silla7.position.set(20,6,0);
+silla7.rotation.y = 3.14; 
+
+var silla8 = silla1.clone(); 
+scene.add(silla8); 
+silla8.position.set(60,6,0);
+silla8.rotation.y = 3.14;    
+
+//entrada
+var arco = new THREE.TorusGeometry(65, 7, 40, 100, 3.14);
+var material8 = new THREE.MeshLambertMaterial(
+    {
+        color: 0x722194, side: THREE.DoubleSide
+    }
+);
+var mesh25 = new THREE.Mesh(arco, material8);
+scene.add(mesh25);
+mesh25.rotation.x = 1.57; 
+mesh25.position.set(-110, 100, 0);
+mesh25.receiveShadow = true;
+mesh25.castShadow = true;
+mesh25.rotation.y=1.57;
+mesh25.rotation.x=0;
+
+var arco2 = new THREE.TorusGeometry(55, 7, 40, 100, 3.14);
+var material9 = new THREE.MeshLambertMaterial(
+    {
+        color: 0xB18FC2, side: THREE.DoubleSide
+    }
+);
+var mesh26 = new THREE.Mesh(arco2, material9);
+scene.add(mesh26);
+mesh26.rotation.x = 1.57; 
+mesh26.position.set(-110, 100, 0);
+mesh26.receiveShadow = true;
+mesh26.castShadow = true;
+mesh26.rotation.y=1.57;
+mesh26.rotation.x=0;
+
+//flores
+var petalo = new RoundedBoxGeometry(0.5, 2.5, 0.5, 8, 2); // llamar a la librería para redondear
+var material10 = new THREE.MeshLambertMaterial({ // material nuevo
+    color: 0x8764D1,
+    side: THREE.DoubleSide
+});
+
+// Crear meshes
+var mesh27 = new THREE.Mesh(petalo, material10);
+mesh27.position.set(0, 0, 0);
+mesh27.castShadow = true;
+
+var mesh28 = new THREE.Mesh(petalo, material10);
+mesh28.rotation.set(0, 0, 0.785);
+mesh28.castShadow = true;
+
+var mesh29 = new THREE.Mesh(petalo, material10);
+mesh29.rotation.set(0, 0, 1.57);
+mesh29.castShadow = true;
+
+var mesh30 = new THREE.Mesh(petalo, material10);
+mesh30.rotation.set(0, 0, 2.355);
+mesh30.castShadow = true;
+
+var mesh31 = new THREE.Mesh(petalo, material10);
+mesh31.rotation.set(200, 6, 0.8);
+mesh31.castShadow = true;
+
+// Grupo principal de la flor
+var flor1 = new THREE.Group();
+flor1.add(mesh27, mesh28, mesh29, mesh30, mesh31);
+flor1.position.set(0, 6, 0);
+flor1.scale.set(5, 5, 5);
+// Clones y rotaciones
+var flor1A = flor1.clone();
+flor1A.position.set(0, 6, 0);
+flor1A.rotation.set(0, 1.57, 0);
+
+//grupoFinal
+var florter = new THREE.Group();
+florter.add(flor1,flor1A);
+florter.position.set(-105, 30, 60);
+florter.scale.set(1, 1, 1);
+scene.add(florter);
+
+var florter2 = florter.clone();
+florter2.position.set(-105, 50, 60);
+scene.add(florter2);
+
+var florter3 = florter.clone();
+florter3.position.set(-105, 70, 60);
+scene.add(florter3);
+
+var florter4 = florter.clone();
+florter4.position.set(-105, 90, 60);
+scene.add(florter4);
+
+var florter5 = florter.clone();
+florter5.position.set(-105, 30, -60);
+scene.add(florter5);
+
+var florter6 = florter.clone();
+florter6.position.set(-105, 50, -60);
+scene.add(florter6);
+
+var florter6 = florter.clone();
+florter6.position.set(-105, 70, -60);
+scene.add(florter6);
+
+var florter7 = florter.clone();
+florter7.position.set(-105, 90, -60);
+scene.add(florter7);
+
+//FLOR2
+var petalo2 = new RoundedBoxGeometry(0.5, 2.5, 0.5, 8, 2); // llamar a la librería para redondear
+var material11 = new THREE.MeshLambertMaterial({ // material nuevo
+    color: 0xCF863C,
+    side: THREE.DoubleSide
+});
+
+// Crear meshes
+var mesh32 = new THREE.Mesh(petalo2, material11);
+mesh32.position.set(0, 0, 0);
+mesh32.castShadow = true;
+
+var mesh33 = new THREE.Mesh(petalo2, material11);
+mesh33.rotation.set(0, 0, 0.785);
+mesh33.castShadow = true;
+
+var mesh34 = new THREE.Mesh(petalo2, material11);
+mesh34.rotation.set(0, 0, 1.57);
+mesh34.castShadow = true;
+
+var mesh35 = new THREE.Mesh(petalo2, material11);
+mesh35.rotation.set(0, 0, 2.355);
+mesh35.castShadow = true;
+
+var mesh36 = new THREE.Mesh(petalo2, material11);
+mesh36.rotation.set(200, 6, 0.8);
+mesh36.castShadow = true;
+
+// Grupo principal de la flor
+var flor11 = new THREE.Group();
+flor11.add(mesh32, mesh33, mesh34, mesh35, mesh36);
+flor11.position.set(0, 6, 0);
+flor11.scale.set(6, 6, 6);
+
+// Clon y rotación
+var flor1AA = flor11.clone();
+flor1AA.position.set(0, 6, 0);
+flor1AA.rotation.set(0, 1.57, 0);
+
+//grupoFinal
+var florter11 = new THREE.Group();
+florter11.add(flor11,flor1AA);
+florter11.position.set(-105, 60, 60);
+florter11.scale.set(1, 1, 1);
+scene.add(florter11);
+
+var flort = florter11.clone();
+flort.position.set(-105, 40, 60);
+scene.add(flort);
+
+var flort2 = florter11.clone();
+flort2.position.set(-105, 80, 60);
+scene.add(flort2);
+
+var flort3 = florter11.clone();
+flort3.position.set(-105, 60, -60);
+scene.add(flort3);
+
+var flort4 = florter11.clone();
+flort4.position.set(-105, 40, -60);
+scene.add(flort4);
+
+var flort5 = florter11.clone();
+flort5.position.set(-105, 80, -60);
+scene.add(flort5);
+
+
+
+
+//🎰🎰Rendering y animación
+    requestAnimationFrame(render);
+    function render() {
+
+    //🪄🪄 Animación - 
+
+    //🎮🎮Actualización del OrbitControls para generar la suavidad de movimiento
+    controls.update();
+
+    //Llamado para renderizar y volver a llamar a la misma función (render)
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+    }
+</script>
+</body>
+</html>
